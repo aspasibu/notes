@@ -2,8 +2,7 @@ package org.aspasibu.notes.entity;
 
 import java.util.Date;
 
-import javax.annotation.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,16 +11,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @ManagedBean
-@SessionScoped
-
-@NamedQueries({
-	@NamedQuery(
-			name = "findAllNotes",
-			query = "select n from Note n"
-			)
-})
-
 @Entity
+@NamedQueries({ @NamedQuery(name = "findAllNotes", query = "select n from Note n order by n.date DESC") })
 public class Note {
 
 	@Id
@@ -35,6 +26,12 @@ public class Note {
 	private Date date;
 
 	public Note() {
+	}
+
+	public Note(String title, String text) {
+		this.title = title;
+		this.text = text;
+		this.date = new Date();
 	}
 
 	/**
